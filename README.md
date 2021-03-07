@@ -39,4 +39,7 @@ CoreApplication
 Web
 
 
-
+Angular
+Loggingservice to log details/info/errors/warns  depening upong environment
+generalize centric httpclient service to easily implment httpclient
+all componenets have their own services
