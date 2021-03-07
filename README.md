@@ -30,5 +30,13 @@ use command promt to start ng serve command which will launch angular ui
 
 
 
+Architectures used:
+
+>net core
+Clean architesture along with repository pattern.
+Infrastructre
+CoreApplication
+Web
+
 
 
