@@ -1,0 +1,83 @@
+<form [formGroup]="premiumcalform">
+    <mat-card class="premium-card">
+        <mat-card-header>
+            <mat-card-title>
+                Monthly Premium Calculator
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="eighty-per-width">
+                        <input formControlName="name" type="text" maxlength="50" matInput placeholder="Name">
+                    </mat-form-field>
+                    <mat-error>
+                        <span *ngIf="!premiumcalform.get('name').valid && premiumcalform.get('name').touched">
+                            Please enter name!</span>
+                    </mat-error>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="eighty-per-width">
+                        <input formControlName="age" type="number" min="0" matInput placeholder="Age">
+                    </mat-form-field>
+                    <mat-error>
+                        <span *ngIf="!premiumcalform.get('age').valid && premiumcalform.get('age').touched">
+                            Please enter age!</span>
+                    </mat-error>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="eighty-per-width">
+                        <input formControlName="dob" type="date" matInput                             placeholder="Date of birth">
+
+                    </mat-form-field>
+                    <mat-error>
+                        <span *ngIf="!premiumcalform.get('dob').valid && premiumcalform.get('dob').touched">
+                            Please enter date of birth!</span>
+                    </mat-error>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="eighty-per-width">
+                        <input formControlName="deathSumInsured" type="number" matInput placeholder="Death Sum Insured">
+                    </mat-form-field>
+                    <mat-error>
+                        <span
+                            *ngIf="!premiumcalform.get('deathSumInsured').valid && premiumcalform.get('deathSumInsured').touched">
+                            Please enter sum insured!</span>
+                    </mat-error>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="eighty-per-width">
+                        <mat-select id="occupationId" formControlName="occupationId" placeholder="Select Occupation">
+                            <mat-option *ngFor="let occupation of occupations" [value]="occupation.occupationId">
+                                {{ occupation.name }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <span
+                                *ngIf="!premiumcalform.get('occupationId').valid && premiumcalform.get('occupationId').touched">
+                                Please enter an occupation!</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </mat-card-content>
+
+        <mat-card-footer>
+            <div class="row">
+                <div class="col">
+                    <span *ngIf="showPremium">Your monthly premium is : ${{monthlyPremium}} AUD </span>
+                </div>
+            </div>
+            <br>
+        </mat-card-footer>
+    </mat-card>
+</form>

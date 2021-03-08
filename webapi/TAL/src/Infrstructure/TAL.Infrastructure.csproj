@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationCore\Entities\TAL.AppCore.Entities.csproj" />
+    <ProjectReference Include="..\ApplicationCore\Interfaces\TAL.AppCore.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
