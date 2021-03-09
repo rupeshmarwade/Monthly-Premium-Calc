@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment.prod";
 import { HttpClientService } from "./httpclient.service";
 import { LoggingService } from "./logging.service";
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class PremiumCalculatorService
