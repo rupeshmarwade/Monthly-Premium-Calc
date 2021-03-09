@@ -1,10 +1,12 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import { Moment } from 'moment';
+import 'moment/locale/es'
 import { Subscription } from 'rxjs';
 import { OccupationsService } from '../../service/occupations.service';
 import { PremiumCalculatorService } from '../../service/premium-calculator.service';
+import { Member } from './models/member.model';
 
 @Component({
   selector: 'app-premium-monthly-calc',
@@ -21,13 +23,17 @@ export class MonthlyPremiumCalculatorComponent implements OnInit, OnDestroy
   showPremium: boolean = false;
   private occupationsubscription: Subscription;
   private premiumSubscription: Subscription;
+  private currencyformattersubscription: Subscription;
 
   constructor(private fb: FormBuilder,
     private occupationsService: OccupationsService,
-    private premiumCalculatorService: PremiumCalculatorService) { }
+    private premiumCalculatorService: PremiumCalculatorService,
+    private currencyPipe: CurrencyPipe) { }
 
   ngOnInit(): void
   {
+    moment.locale('en-au');
+
     this.premiumcalform = this.fb.group({
       'name': ['', Validators.required],
       'age': ['', [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -41,6 +47,17 @@ export class MonthlyPremiumCalculatorComponent implements OnInit, OnDestroy
       {
         this.occupations = response;
       });
+
+    this.currencyformattersubscription = this.premiumcalform.get("deathSumInsured")
+      .valueChanges.subscribe(x =>
+      {
+        if (x) {
+          this.premiumcalform.patchValue(
+            {
+              deathSumInsured: this.currencyPipe.transform(x.replace(/\D/g, ""), "AUD", "symbol", "1.0-0")
+            }, { emitEvent: false })
+        }
+      });
   }
 
 
@@ -53,7 +70,7 @@ export class MonthlyPremiumCalculatorComponent implements OnInit, OnDestroy
 
   handleDOBChange(event)
   {
-    const m: Moment = event.value;
+    const m: moment.Moment = event.value;
     if (m) {
       this.premiumcalform.get("age").setValue(moment().diff(m, 'years', false));
     }
@@ -62,7 +79,14 @@ export class MonthlyPremiumCalculatorComponent implements OnInit, OnDestroy
   getPremium(): void
   {
     if (this.premiumcalform.valid) {
-      this.premiumSubscription = this.premiumCalculatorService.getMonthlyPremium(this.premiumcalform.value)
+      const member: Member = {
+        age: this.premiumcalform.get("age").value,
+        name: this.premiumcalform.get("name").value,
+        deathSumInsured: this.premiumcalform.get("deathSumInsured").value.replace(/^\D+/g, "").replace(/\,/g, ''),
+        occupationId: this.premiumcalform.get("occupationId").value,
+        dob: this.premiumcalform.get("dob").value,
+      };
+      this.premiumSubscription = this.premiumCalculatorService.getMonthlyPremium(member)
         .subscribe((premiumammount) =>
         {
           this.monthlyPremium = premiumammount as number;

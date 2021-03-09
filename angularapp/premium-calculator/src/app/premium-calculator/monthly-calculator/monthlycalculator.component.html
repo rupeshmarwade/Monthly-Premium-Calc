@@ -42,7 +42,7 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field class="eighty-per-width">
-                        <input formControlName="deathSumInsured" type="number" matInput placeholder="Death Sum Insured">
+                        <input formControlName="deathSumInsured" type="text" matInput placeholder="Death Sum Insured">
                     </mat-form-field>
                     <mat-error>
                         <span
@@ -79,7 +79,8 @@
         <mat-card-footer>
             <div class="row">
                 <div class="col">
-                    <span *ngIf="showPremium">Your monthly premium is {{monthlyPremium | currency:'AUD':'code'}}
+                    <span *ngIf="showPremium"> Based you the information you have provided, your premium will be
+                        {{monthlyPremium | currency:'AUD':'symbol'}} per month.
                     </span>
                 </div>
             </div>

@@ -18,10 +18,13 @@
     "@angular/core": "~10.2.4",
     "@angular/forms": "~10.2.4",
     "@angular/material": "^10.2.7",
+    "@angular/material-moment-adapter": "^11.2.3",
     "@angular/platform-browser": "~10.2.4",
     "@angular/platform-browser-dynamic": "~10.2.4",
     "@angular/router": "~10.2.4",
+    "mat-currency-format": "0.0.7",
     "moment": "^2.29.1",
+    "ngx-currency": "^2.5.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
