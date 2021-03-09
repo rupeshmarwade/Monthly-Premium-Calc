@@ -9,6 +9,8 @@ import { MonthlyPremiumCalculatorComponent } from './premium-calculator/monthly-
 import { HttpClientModule } from '@angular/common/http';
 import { OccupationsService } from './service/occupations.service';
 import { PremiumCalculatorService } from './service/premium-calculator.service';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { CurrencyPipe } from '@angular/common'
 
 @NgModule({
   declarations: [
@@ -23,7 +25,12 @@ import { PremiumCalculatorService } from './service/premium-calculator.service';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [OccupationsService, PremiumCalculatorService],
+  providers: [
+    OccupationsService,
+    PremiumCalculatorService,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-AU' },
+    CurrencyPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
